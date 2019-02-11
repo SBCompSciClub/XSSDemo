@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<title>Basic Chatroom</title>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="messages"></div>
+			<p contenteditable id="input"></p>
+		</div>
+		<script>
+
+let socket = io();
+
+let messageBox = document.querySelector("#messages");
+let inputBox = document.querySelector("#input");
+inputBox.onkeydown = (event)=>{
+	if(event.which === 13 || event.charCode === 13){
+		let message = inputBox.innerText;
+		inputBox.innerText = "";
+		socket.emit('message_sent', message);
+	}
+}
+
+socket.on('message_received', (message)=>{
+	messageBox.innerHTML += message+'<br />'
+});
+
+		</script>
+	</body>
+</html>
