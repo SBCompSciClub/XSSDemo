@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Login for Admin</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<script>
+
+let password = prompt("Enter the admin password: ");
+requestPage("admin", password)
+	.then(data=>document.write(data));
+
+function requestPage(url, password){
+	let credStr = `admin:${password}`;
+	return fetch(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "test/html",
+			"Authorization": `Basic ${btoa(credStr)}` 
+		}
+	})
+	.then(response => response.text());
+}
+
+		</script>
+	</body>
+</html>
