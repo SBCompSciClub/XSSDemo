@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<title>
+			Moderator Page
+		</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<style>
+p:hover {
+	background-color:#CCFFCC;
+	width: 400px;
+	overflow-x: auto;
+}
+		</style>
+	</head>
+	<body>
+		<button type="button" id="remover">Remove top entry</button>
+		<div id="container">
+
+		</div>
+		<script>
+
+let socket = io();
+let pendingMessages = [];
+let container = document.querySelector("#container");
+let remover = document.querySelector("#remover");
+
+socket.on('message_received', (message)=>{
+	let para = document.createElement('p');
+	para.innerText += message;
+	para.index = pendingMessages.length;
+	para.onclick = ()=>{
+		socket.emit('message_approved', para.innerText);
+		pendingMessages.splice(para.index, 1);
+		setIndices(pendingMessages);
+		displayMessages();
+	}
+	pendingMessages.push(para);
+	displayMessages();
+});
+
+remover.onclick = ()=>{
+	pendingMessages.shift();
+	setIndices(pendingMessages);
+	displayMessages();
+}
+
+function displayMessages(){
+	container.innerHTML = "";
+	for(let message of pendingMessages){
+		container.appendChild(message);
+	}
+}
+
+function setIndices(list){
+	for(let i=0;i<list.length;i++){
+		list[i].index = i;
+	}
+}
+
+		</script>
+	</body>
+</html>
