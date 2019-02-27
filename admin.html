@@ -14,7 +14,7 @@ p:hover {
 		</style>
 	</head>
 	<body>
-		<button type="button" id="remover">Remove top entry</button>
+		<button type="button" id="remover">Clear</button>
 		<div id="container">
 
 		</div>
@@ -27,21 +27,13 @@ let remover = document.querySelector("#remover");
 
 socket.on('message_received', (message)=>{
 	let para = document.createElement('p');
-	para.innerText += message;
-	para.index = pendingMessages.length;
-	para.onclick = ()=>{
-		socket.emit('message_approved', para.innerText);
-		pendingMessages.splice(para.index, 1);
-		setIndices(pendingMessages);
-		displayMessages();
-	}
-	pendingMessages.push(para);
+	para.innerText += `${message.username}: ${message.body}`;
+	pendingMessages.unshift(para);
 	displayMessages();
 });
 
 remover.onclick = ()=>{
-	pendingMessages.shift();
-	setIndices(pendingMessages);
+	pendingMessages = [];
 	displayMessages();
 }
 
@@ -49,12 +41,6 @@ function displayMessages(){
 	container.innerHTML = "";
 	for(let message of pendingMessages){
 		container.appendChild(message);
-	}
-}
-
-function setIndices(list){
-	for(let i=0;i<list.length;i++){
-		list[i].index = i;
 	}
 }
 

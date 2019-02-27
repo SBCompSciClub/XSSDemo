@@ -33,14 +33,32 @@ io.on('connection', (socket)=>{
 	});
 	socket.on('message_sent', (message)=>{
 		//messages.push(message);
-		io.emit('message_received', message);
-	});
-	socket.on('message_approved', (message)=>{
-		messages.push(message);
-		io.emit('message_approved', message);
+		io.emit("message_received", message);
+		if(XSSFilter(message)){
+			io.emit('message_approved', `${message.username}: ${message.body}`);
+		} else {
+			io.emit('message_approved', "<-- FAILED MESSAGE -->");
+		}
 	});
 });
 
 http.listen( (process.env.PORT || 8080), ()=>{
 	console.log("Main page working");
 });
+
+function XSSFilter(message){
+	let u = message.username.toLowerCase();
+	let b = message.body.toLowerCase();
+	//Check for HTML tags:
+	let tagRegex = new RegExp('(<.*>)|(>.*<)');
+	if(tagRegex.test(u) || tagRegex.test(b)){
+		return false;
+	}
+
+	//Check for URL Redirects
+	let httpRegex = new RegExp('(http)|(www)|(href)|(src)');
+	if(httpRegex.test(u) || httpRegex.test(b)){
+		return false;
+	}
+	return true;
+}

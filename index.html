@@ -14,13 +14,18 @@
 
 let socket = io();
 
+let username = prompt("Enter a username: ");
+
 let messageBox = document.querySelector("#messages");
 let inputBox = document.querySelector("#input");
 inputBox.onkeydown = (event)=>{
 	if(event.which === 13 || event.charCode === 13){
 		let message = inputBox.innerText;
 		inputBox.innerText = "";
-		socket.emit('message_sent', message);
+		socket.emit('message_sent', {
+			username: username,
+			body: message
+		});
 	}
 }
 
