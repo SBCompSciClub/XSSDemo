@@ -10,6 +10,32 @@
 			<div id="messages"></div>
 			<p contenteditable id="input"></p>
 		</div>
+		<div id="rules">
+			<h3>Objective</h3>
+			<p class="objective">
+				We, the officers, have logged into the chatroom with a secret username.
+				Your job is to steal our username. You must switch our screen to winner.html
+				and pass to winner.html your name and our username, making it display both.
+			</p>
+			<h3>Sub-Challenges</h3>
+			<p class="info">
+				Alert your name on everyone's device. <br />
+				(If you can do this, then you've figured out how to attack the system.)
+			</p>
+			<p class="info">
+				Redirect everyone's device to <a href="https://www.sethusenthil.com">Sethu's site</a><br />
+				(If you can do this, then you're almost done with the main challenge.) 
+			</p>
+			<h3>Advice</h3>
+			<p class="info">
+				All the code is available <a href="https://github.com/SBCompSciClub/XSSDemo">here</a>.
+				Check it out if you need to scout for vulnerabilities or figure out how something works.
+				We recommend looking for edge cases in the filter, examining how data is written to the page,
+				and checking out <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">this resource</a> 
+				for tricks to circumvent naive XSS filters.
+				We will be providing hints every few minutes, so pay attention.
+			</p>
+		</div>
 		<script>
 
 let socket = io();

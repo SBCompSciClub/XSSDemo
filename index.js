@@ -25,6 +25,9 @@ app.post('/admin', (req, res)=>{
 app.all('/login', (req, res)=>{
 	res.sendFile(__dirname + "/login.html");
 });
+app.all('/winner', (req, res)=>{
+	res.sendFile(__dirname + "/winner.html");
+});
 
 io.on('connection', (socket)=>{
 	console.log('User connected');

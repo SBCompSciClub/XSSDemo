@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Winner</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<p id="winner">[your username] wins!</p>
+		<p id="flag">Flag: [our username]</p>
+		<script>
+
+let url = new URL(window.location);
+let params = new URLSearchParams(url.search);
+
+let username = params.get("username");
+let flag = params.get("flag");
+
+if(username === null){
+	username = "[your name]";
+}
+if(flag === null){
+	flag = "[our username]";
+}
+
+document.getElementById("winner").innerText = `${username} wins!`;
+document.getElementById("flag").innerText = `Flag: ${flag}`;
+
+		</script>
+	</body>
+</html>
