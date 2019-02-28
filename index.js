@@ -8,7 +8,7 @@ let auth = require('express-basic-auth');
 let messages = [];
 
 function passwordChecker(username, password){
-	return username === "admin" && sha256(password) === "2492008b9a71e79b01f2281a8ab726f723204f07aceb541eddbb9ed60d813a06";
+	return username === "admin" && sha256(password) === "0CBEDE39FE94495710EEFBB696E90554812BEA5BE396ABAA32862E1DB7D25932";
 }
 
 app.use(express.static('res'));
