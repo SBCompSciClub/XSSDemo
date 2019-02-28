@@ -33,6 +33,12 @@ if(flag === null){
 
 document.getElementById("winner").innerText = `${username} wins!`;
 document.getElementById("flag").innerText = `Flag: ${flag}`;
+document.getElementById("winner").animate([
+  { fontSize: '0px'}, 
+  { fontSize: '100px' }
+], { 
+  duration: 3
+});
 
 		</script>
 	</body>
